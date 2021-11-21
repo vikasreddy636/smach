@@ -1,0 +1,94 @@
+#!/usr/bin/env python
+
+import roslib
+import rospy
+import smach
+import smach_ros
+import time
+import random
+
+# INSTALLATION
+# - create ROS package in your workspace:
+#          $ catkin_create_pkg smach_tutorial std_msgs rospy
+# - move this file to the 'smach_tutorial/scr' folder and give running permissions to it with
+#          $ chmod +x state_machine.py
+# - run the 'roscore' and then you can run the state machine with
+#          $ rosrun smach_tutorial state_machine.py
+# - install the visualiser using
+#          $ sudo apt-get install ros-kinetic-smach-viewer
+# - run the visualiser with
+#          $ rosrun smach_viewer smach_viewer.py
+
+# define state moverobot
+    class moverobot(smach.State):
+       def __init__(self):
+         smach.State.__init__(self, outcomes=['at_room','not_at_room'])
+           self.counter = 0
+   
+      def execute(self, userdata):
+           if true
+               return 'at_room'
+           else:
+               return 'not_at_room'
+   
+   
+   # define state hints
+   class searchhints(smach.State):
+       def __init__(self):
+           smach.State.__init__(self, outcomes=['update_hint'])
+   
+       def execute(self, userdata):
+           rospy.loginfo('Executing search for hint')
+           return 'upate_hint'
+
+   class hypothesischeck(smach.State):
+       def __init__(self):
+           smach.State.__init__(self, outcomes=['oracle_check','not_good_hint])
+   
+       def execute(self, userdata):
+           rospy.loginfo('hypothesis_check')
+           if true
+               return 'oracle_check'
+           else:
+               return 'not_good_hint'
+           
+   
+   
+   
+   # main
+   def main():
+       rospy.init_node('smach_cleudo')
+   
+       # Create a SMACH state machine
+       sm = smach.StateMachine(outcomes=['game won'])
+   
+       # Open the container
+       with sm:
+           # Add states to the container
+           smach.StateMachine.add('moverobot', moverobot(), 
+                                  transitions={'at_room':'searchhints', 
+                                              'not_at_room':'moverobot'})
+           smach.StateMachine.add('searchhints', searchhints(), 
+                                transitions={'updatehints':'hypothesischeck'})
+
+           smach.StateMachine.add('searchhints', searchhints(), 
+                                transitions={'updatehints':'hypothesischeck'})
+
+           smach.StateMachine.add('hypothesischeck', hypothesischeck(), 
+                                transitions={'hypothesischeck':'oraclecheck'})
+           
+           smach.StateMachine.add('oracle', oracle(), 
+                                transitions={'hypothesiscorrect':'gamewon',
+  'hypothesisincorrect':'moverobot'})
+
+           
+
+
+
+  
+      # Execute SMACH plan
+       outcome = sm.execute()
+   
+   
+   if __name__ == '__main__':
+       main()
